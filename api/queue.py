@@ -5,8 +5,9 @@ import urllib2
 
 class Queue:
 
-    def __init__(self, url):
+    def __init__(self, url, user, api_key):
         self.url = url
+        self.api_auth = "ApiKey {}:{}".format(user,api_key)
 
 
     def next(self,itemType):
@@ -14,7 +15,7 @@ class Queue:
         try: 
             req = GetRequest(self.url)
             req.query("status", "QUEUED").query("type", itemType)
-            req.header('Authorization', 'ApiKey markus:7e7bb84b6d08f8401fb3df47511d2473a2b396d7')
+            req.header('Authorization', self.api_auth)
             resp = req.open()
             obj = json.load(resp)
             if len(obj["objects"]) > 0:
@@ -24,7 +25,7 @@ class Queue:
 
                 req2 = PutRequest(put_url)
                 req2.data(json.dumps(item), "application/json")
-                req2.header('Authorization', 'ApiKey markus:7e7bb84b6d08f8401fb3df47511d2473a2b396d7')
+                req2.header('Authorization', self.api_auth)
                 req2.put()
                 result = item
         except urllib2.HTTPError, e:
