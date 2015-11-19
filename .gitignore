@@ -1,5 +1,6 @@
 #Project specific
 *.conf
+.swp
 
 ## Python ignore from https://github.com/github/gitignore/blob/master/Python.gitignore
 

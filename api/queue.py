@@ -21,16 +21,34 @@ class Queue:
             if len(obj["objects"]) > 0:
                 item = obj["objects"][0]
                 item["status"] = "PROCESSING"
-                put_url = urljoin(self.url,item["resource_uri"])
-
-                req2 = PutRequest(put_url)
-                req2.data(json.dumps(item), "application/json")
-                req2.header('Authorization', self.api_auth)
-                req2.put()
+                self._put(item)
                 result = item
         except urllib2.HTTPError, e:
             #Got an error
             None
         return result
 
+    def failed(self,item):
+        try:
+            item["status"] = "FAILED"
+            self._put(item)
+        except urllib2.HTTPError as e:
+            # Got an error putting
+            None
+
+    def done(self, item):
+        try:
+            item["status"] = "DONE"
+            self._put(item)
+        except urllib2.HTTPError as e:
+            # Got an error putting
+            None
+
+
+    def _put(self,item):
+        put_url = urljoin(self.url, item["resource_uri"])
+        req = PutRequest(put_url)
+        req.data(json.dumps(item), "application/json")
+        req.header("Authorization", self.api_auth)
+        req.put()
 
