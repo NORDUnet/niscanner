@@ -32,11 +32,16 @@ def process_host(queue, nerds_api):
                 queue.done(item)
         except ScannerExeption as e:
             logger.error("%s",e)
-            queue.failed(item)
+            failed(queue,item)
         except Exception as e:
             logger.error("Unable to process host %s got error: %s",item,e)
-            queue.failed(item)
-        
+            failed(queue,item)
+
+def failed(queue,item):
+    try:
+        queue.failed(item)
+    except Exception as e:
+        logger.error("Problem with reaching NI, got error: %s", e)
 
 
 def main():
