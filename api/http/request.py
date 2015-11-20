@@ -50,6 +50,14 @@ class BaseRequest(object):
 class GetRequest(BaseRequest):
     pass
 
+class PostRequest(BaseRequest):
+    def __init__(self, url, data, content_type="application/json"):
+        BaseRequest.__init__(self,url)
+        self.data(data, content_type)
+
+    def post(self):
+        self._execute()
+
 class PutRequest(BaseRequest):
     def _request(self):
         req = BaseRequest._request(self)

@@ -1,3 +1,4 @@
+from scanner.exceptions import ScannerExeption
 import nmap
 
 class HostScanner:
@@ -27,12 +28,12 @@ class HostScanner:
             if "nmap" in result: 
                 if "error" in result["nmap"]["scaninfo"]:
                     errors = result["nmap"]["scaninfo"]["error"]
-                    print "Unable to scan target '"+self.target+"' error: "+str(errors)
+                    msg = "Unable to scan target '{}' error '{}'".format(self.target, errors)
+                    raise ScannerExeption(msg)
                 elif "downhosts" in result["nmap"]["scanstats"]:
                     if result["nmap"]["scanstats"]["downhosts"] > 0:
-                        print "Host '"+self.target+"' was not reachable"
-                    
-            
+                        msg = "Host '{}' was not reachable".format(self.target) 
+                        raise ScannerExeption(msg)
             return None
 
         

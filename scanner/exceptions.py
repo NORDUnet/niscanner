@@ -1,0 +1,3 @@
+
+class ScannerExeption(Exception):
+    pass

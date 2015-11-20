@@ -1,7 +1,9 @@
 from ConfigParser import SafeConfigParser
 from utils.cli import CLI
 from api.queue import Queue
+from api.nerds import NerdsApi
 from scanner.host import HostScanner
+from scanner.exceptions import ScannerExeption
 from utils.url import url_concat
 import logging
 
@@ -15,18 +17,25 @@ except ImportError as e:
     logger.error("No nerds_format to import. Check if you have a symlink to 'lib/nmap_services_py.py'")
 
 
-def process_host(queue):
+def process_host(queue, nerds_api):
     item = queue.next("Host")
     if item:
-        scanner = HostScanner(item, nerds_format) 
-        nerds = scanner.process()
-        if not nerds:
-            # Error occured :(
-            logger.error("Unable to scan item "+str(item))
+        try: 
+            scanner = HostScanner(item, nerds_format) 
+            nerds = scanner.process()
+            if not nerds:
+                # Error occured :(
+                logger.error("Unable to scan item "+str(item))
+                queue.failed(item)
+            else:
+                nerds_api.send(nerds)
+                queue.done(item)
+        except ScannerExeption as e:
+            logger.error("%s",e)
             queue.failed(item)
-        else:
-            print nerds
-            queue.done(item)
+        except Exception as e:
+            logger.error("Unable to process host %s got error: %s",item,e)
+            queue.failed(item)
         
 
 
@@ -39,10 +48,15 @@ def main():
         logger.error("Config file '%s' is missing", args.config)
         return None
     ## ready :)
-    queue_url = url_concat(config.get("NI", "url"), "scan_queue")
-    queue = Queue(queue_url, config.get("NI","api_user"), config.get("NI","api_key"))
+    api_user = config.get("NI", "api_user")
+    api_key = config.get("NI", "api_key")
+    queue_url = url_concat(config.get("NI", "url"), "scan_queue/")
+    queue = Queue(queue_url, api_user, api_key)
+
+    nerds_url = url_concat(config.get("NI", "url"), "nerds/")
+    nerds_api = NerdsApi(nerds_url, api_user, api_key)
     
-    process_host(queue)
+    process_host(queue, nerds_api)
 
 if __name__ == "__main__":
     main()
