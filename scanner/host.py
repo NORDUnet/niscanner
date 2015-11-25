@@ -1,5 +1,6 @@
 from scanner.exceptions import ScannerExeption
 import nmap
+import json
 
 class HostScanner:
     # -O requires root access and is slow 
@@ -8,9 +9,10 @@ class HostScanner:
 
     def __init__(self, item, nmap_format):
         data = item["data"]
-        if isinstance(data, dict):
+        try:
+            data = json.loads(data)
             self.target = data["target"]
-        else:
+        except ValueError:
             # no nestest structure. Target is data
             self.target = data
         self.nmap_format = nmap_format
