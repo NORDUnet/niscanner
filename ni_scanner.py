@@ -11,17 +11,13 @@ FORMAT = '%(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(format=FORMAT)
 logger = logging.getLogger('ni_scanner')
 
-try:
-    from lib.nmap_services_py import nerds_format
-except ImportError as e:
-    logger.error("No nerds_format to import. Check if you have a symlink to 'lib/nmap_services_py.py'")
 
 
 def process_host(queue, nerds_api):
     item = queue.next("Host")
     if item:
         try: 
-            scanner = HostScanner(item, nerds_format) 
+            scanner = HostScanner(item) 
             nerds = scanner.process()
             if not nerds:
                 # Error occured :(
