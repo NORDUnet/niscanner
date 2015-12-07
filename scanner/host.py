@@ -14,8 +14,9 @@ except ImportError as e:
 
 class HostScanner:
     # -O requires root access and is slow 
-    nmap_arguments = "-PE -sV -O --osscan-guess"
+    #nmap_arguments = "-PE -sV -O --osscan-guess"
     #nmap_arguments = "-PE -sV"
+    nmap_arguments = ""
 
     def __init__(self, item):
         data = item["data"]
