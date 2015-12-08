@@ -14,9 +14,9 @@ logger = logging.getLogger('ni_scanner')
 
 
 def process_host(queue, nerds_api):
-    item = queue.next("Host")
-    if item:
+    for item in queue.next("Host"):
         try: 
+            queue.processing(item)
             scanner = HostScanner(item) 
             nerds = scanner.process()
             if not nerds:

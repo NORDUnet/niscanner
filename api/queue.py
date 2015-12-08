@@ -18,11 +18,7 @@ class Queue:
             req.header('Authorization', self.api_auth)
             resp = req.open()
             obj = json.load(resp)
-            if len(obj["objects"]) > 0:
-                item = obj["objects"][0]
-                item["status"] = "PROCESSING"
-                self._put(item)
-                result = item
+            result = (item for item in obj["objects"])
         except urllib2.HTTPError, e:
             #Got an error
             None
@@ -34,6 +30,13 @@ class Queue:
             self._put(item)
         except urllib2.HTTPError as e:
             # Got an error putting
+            None
+
+    def processing(self, item):
+        try:
+            item["status"] = "PROCESSING"
+            self._put(item)
+        except urllib2.HTTPError as e:
             None
 
     def done(self, item):
