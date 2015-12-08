@@ -18,7 +18,8 @@ class Queue:
             req.header('Authorization', self.api_auth)
             resp = req.open()
             obj = json.load(resp)
-            result = (item for item in obj["objects"])
+            if len(obj["objects"]) > 0:
+                result = obj["objects"][0]
         except urllib2.HTTPError, e:
             #Got an error
             None

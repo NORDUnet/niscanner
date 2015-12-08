@@ -14,7 +14,8 @@ logger = logging.getLogger('ni_scanner')
 
 
 def process_host(queue, nerds_api):
-    for item in queue.next("Host"):
+    item = queue.next("Host")
+    while item:
         try: 
             queue.processing(item)
             scanner = HostScanner(item) 
@@ -32,6 +33,7 @@ def process_host(queue, nerds_api):
         except Exception as e:
             logger.error("Unable to process host %s got error: %s",item,e)
             failed(queue,item)
+        item = queue.next("Host")
 
 def failed(queue,item):
     try:
