@@ -8,6 +8,10 @@ Currently it supports nmap scans of hosts. When run it will process all currentl
 
     python ni_scanner.py -C settings.conf
 
+## Running tests
+
+    python -m unittest discover
+
 ## License
 
 NORDUnet License (3-clause BSD). See LICENSE.txt for more details.
