@@ -4,6 +4,13 @@ NI Scaner is a tool for processing scan requests from NORDUnets Network Inventor
 
 Currently it supports nmap scans of hosts. When run it will process all currently queued host scan requrests from NI.
 
+## Installation
+
+1. Create a `lib` folder and add a `__init.py` to the folder.
+2. Symlink the [nerds](https://github.com/fredrikt/nerds) `producers/nmap_services_py/nmap_services_py.py` into `lib`
+3. Copy `settings.conf.dist` to `settings.conf`
+4. Fill in settings
+
 ## Usage
 
     python ni_scanner.py -C settings.conf
