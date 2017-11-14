@@ -46,7 +46,7 @@ class HostScanner:
                             nerds = merge_nmap_services(new_nerds, nerds) 
                         else:
                             nerds = nerds_format(ip, result)
-                    except Exception e:
+                    except Exception as e:
                         logger.error("Unable to nerds format data. Exception:", str(e))
                         logger.debug("IP: %s, Data: %s", ip, result)
             else:
