@@ -25,13 +25,14 @@ def process_host(queue, nerds_api):
                 logger.error("Unable to scan item "+str(item))
                 queue.failed(item)
             else:
+                logger.debug("Posting nerds data")
                 nerds_api.send(nerds)
                 queue.done(item)
         except ScannerExeption as e:
             logger.error("%s",e)
             failed(queue,item)
         except Exception as e:
-            logger.error("Unable to process host %s got error: %s",item,e)
+            logger.error("Unable to process host %s got error: %s",item,str(e))
             failed(queue,item)
         item = queue.next("Host")
 

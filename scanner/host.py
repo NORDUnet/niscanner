@@ -8,9 +8,10 @@ logging.basicConfig(format=FORMAT)
 logger = logging.getLogger('host_scanner')
 
 try:
-    from lib.nmap_services_py import nerds_format, merge_nmap_services
+    from lib.nerds.nmap_services_py import nerds_format, merge_nmap_services
 except ImportError as e:
     logger.error("No nerds_format and merge_nmap_services to import. Check if you have a symlink to 'lib/nmap_services_py.py'")
+    logger.error('Import error: %s', e)
 
 class HostScanner:
     # -O requires root access and is slow 
@@ -38,12 +39,16 @@ class HostScanner:
             if result["scan"]:
                 scan_data = result["scan"]
                 for ip in sorted(scan_data.keys()):
-                    if nerds:
-                        #merge the data
-                        new_nerds = nerds_format(ip, result)
-                        nerds = merge_nmap_services(new_nerds, nerds) 
-                    else:
-                        nerds = nerds_format(ip, result)
+                    try:
+                        if nerds:
+                            #merge the data
+                            new_nerds = nerds_format(ip, result)
+                            nerds = merge_nmap_services(new_nerds, nerds) 
+                        else:
+                            nerds = nerds_format(ip, result)
+                    except Exception e:
+                        logger.error("Unable to nerds format data. Exception:", str(e))
+                        logger.debug("IP: %s, Data: %s", ip, result)
             else:
                 # TODO: Better/prettier error handling
                 if "nmap" in result: 
