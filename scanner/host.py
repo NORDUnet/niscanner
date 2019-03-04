@@ -8,9 +8,9 @@ logging.basicConfig(format=FORMAT)
 logger = logging.getLogger('host_scanner')
 
 try:
-    from lib.nerds.nmap_services_py import nerds_format, merge_nmap_services
+    from utils.nmap_services_py import nerds_format, merge_nmap_services
 except ImportError as e:
-    logger.error("No nerds_format and merge_nmap_services to import. Check if you have a symlink to 'lib/nmap_services_py.py'")
+    logger.error("No nerds_format and merge_nmap_services to import. Check if you have a symlink to 'utils/nmap_services_py.py'")
     logger.error('Import error: %s', e)
 
 class HostScanner:
