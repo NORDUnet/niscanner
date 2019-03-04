@@ -1,4 +1,4 @@
-from ConfigParser import SafeConfigParser
+from configparser import ConfigParser
 from utils.cli import CLI
 from api.queue import Queue
 from api.nerds import NerdsApi
@@ -46,7 +46,7 @@ def failed(queue, item):
 def main():
     args = CLI().options()
     try:
-        config = SafeConfigParser()
+        config = ConfigParser()
         config.readfp(open(args.config))
     except IOError:
         logger.error("Config file '%s' is missing", args.config)
