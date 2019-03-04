@@ -1,7 +1,7 @@
-from urlparse import urljoin
+from urllib.parse import urljoin
 from api.http.request import GetRequest, PutRequest
 import json
-import urllib2
+import urllib.request, urllib.error, urllib.parse
 
 class Queue:
 
@@ -20,7 +20,7 @@ class Queue:
             obj = json.load(resp)
             if len(obj["objects"]) > 0:
                 result = obj["objects"][0]
-        except urllib2.HTTPError:
+        except urllib.error.HTTPError:
             #Got an error
             None
         return result
@@ -29,7 +29,7 @@ class Queue:
         try:
             item["status"] = "FAILED"
             self._put(item)
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             # Got an error putting
             None
 
@@ -37,14 +37,14 @@ class Queue:
         try:
             item["status"] = "PROCESSING"
             self._put(item)
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             None
 
     def done(self, item):
         try:
             item["status"] = "DONE"
             self._put(item)
-        except urllib2.HTTPError as e:
+        except urllib.error.HTTPError as e:
             # Got an error putting
             None
 
