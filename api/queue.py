@@ -20,7 +20,7 @@ class Queue:
             obj = json.load(resp)
             if len(obj["objects"]) > 0:
                 result = obj["objects"][0]
-        except urllib2.HTTPError, e:
+        except urllib2.HTTPError:
             #Got an error
             None
         return result
