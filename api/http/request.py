@@ -1,5 +1,5 @@
-import urllib2
-from urllib import urlencode
+import urllib.request, urllib.error, urllib.parse
+from urllib.parse import urlencode
 
 class BaseRequest(object):
     
@@ -28,16 +28,16 @@ class BaseRequest(object):
         return self
 
     def _execute(self):
-        return urllib2.urlopen(self._request())
+        return urllib.request.urlopen(self._request())
 
     def _request(self):
         url = self.url
         if self.query_params:
             url = "{0}?{1}".format(self.url, urlencode(self.query_params))
         #Create req
-        req = urllib2.Request(url)
+        req = urllib.request.Request(url)
         
-        for field, value in self.headers.iteritems():
+        for field, value in self.headers.items():
             req.add_header(field, value)
         if self._data:
             req.add_data(self._data)
