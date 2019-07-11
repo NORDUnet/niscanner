@@ -24,7 +24,7 @@ class BaseRequest(object):
     def data(self, req_data, content_type=None):
         if content_type:
             self.content_type(content_type)
-        self._data = req_data
+        self._data = req_data.encode('utf-8')
         return self
 
     def _execute(self):
@@ -40,7 +40,7 @@ class BaseRequest(object):
         for field, value in self.headers.items():
             req.add_header(field, value)
         if self._data:
-            req.add_data(self._data)
+            req.data = self._data
         return req   
            
 
