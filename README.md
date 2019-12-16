@@ -8,9 +8,8 @@ Currently it supports nmap scans of hosts. When run it will process all currentl
 
 1. Create a `lib` folder and add a `__init__.py` to the folder.
 2. Symlinks for [nerds](https://github.com/fredrikt/nerds)
-  - `producers/nmap_services_py/nmap_services_py.py` into `lib/nerds`
-  - `producers/utils/file.py` and `producers/utils/nerds.py` into `lib/utils`
-  - Create `__init__.py` file in both sub dirs
+  - `producers/nmap_services_py/nmap_services_py.py` into `utils`
+  - `producers/nerds_utils/file.py` and `producers/nerds_utils/nerds.py` into `nerds_utils`
 3. Copy `settings.conf.dist` to `settings.conf`
 4. Fill in settings
 
