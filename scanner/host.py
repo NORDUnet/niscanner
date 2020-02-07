@@ -57,7 +57,7 @@ class HostScanner:
                         msg = "Unable to scan target '{}' error '{}'".format(self.target, errors)
                         logger.warning(msg)
                     elif "downhosts" in result["nmap"]["scanstats"]:
-                        if result["nmap"]["scanstats"]["downhosts"] > 0:
+                        if int(result["nmap"]["scanstats"]["downhosts"]) > 0:
                             msg = "Host '{}' was not reachable".format(self.target) 
                             logger.warning(msg)
         return nerds
