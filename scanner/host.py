@@ -1,4 +1,3 @@
-from scanner.exceptions import ScannerExeption
 import nmap
 import json
 import logging
@@ -13,11 +12,12 @@ except ImportError as e:
     logger.error("No nerds_format and merge_nmap_services to import. Check if you have a symlink to 'utils/nmap_services_py.py'")
     logger.error('Import error: %s', e)
 
+
 class HostScanner:
-    # -O requires root access and is slow 
-    #nmap_arguments = "-PE -sV -O --osscan-guess"
-    #nmap_arguments = "-PE -sV"
-    nmap_arguments = "-sV"
+    # -O requires root access and is slow
+    # nmap_arguments = "-PE -sV -O --osscan-guess"
+    # nmap_arguments = "-PE -sV"
+    nmap_arguments = "-Pn"
 
     def __init__(self, item):
         data = item["data"]
@@ -35,15 +35,15 @@ class HostScanner:
         to_scan = self.ipv4s or [self.target]
         nerds = None
         for target in to_scan:
-            result = nm.scan(target, arguments=self.nmap_arguments) 
+            result = nm.scan(target, arguments=self.nmap_arguments, sudo=True)
             if result["scan"]:
                 scan_data = result["scan"]
                 for ip in sorted(scan_data.keys()):
                     try:
                         if nerds:
-                            #merge the data
+                            # merge the data
                             new_nerds = nerds_format(ip, result)
-                            nerds = merge_nmap_services(new_nerds, nerds) 
+                            nerds = merge_nmap_services(new_nerds, nerds)
                         else:
                             nerds = nerds_format(ip, result)
                     except Exception as e:
@@ -51,15 +51,13 @@ class HostScanner:
                         logger.debug("IP: %s, Data: %s", ip, result)
             else:
                 # TODO: Better/prettier error handling
-                if "nmap" in result: 
+                if "nmap" in result:
                     if "error" in result["nmap"]["scaninfo"]:
                         errors = result["nmap"]["scaninfo"]["error"]
                         msg = "Unable to scan target '{}' error '{}'".format(self.target, errors)
                         logger.warning(msg)
                     elif "downhosts" in result["nmap"]["scanstats"]:
                         if int(result["nmap"]["scanstats"]["downhosts"]) > 0:
-                            msg = "Host '{}' was not reachable".format(self.target) 
+                            msg = "Host '{}' was not reachable".format(self.target)
                             logger.warning(msg)
         return nerds
-        
-
