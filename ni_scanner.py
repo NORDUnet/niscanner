@@ -47,7 +47,7 @@ def main():
     args = CLI().options()
     try:
         config = ConfigParser()
-        config.readfp(open(args.config))
+        config.read(args.config)
     except IOError:
         logger.error("Config file '%s' is missing", args.config)
         return None
