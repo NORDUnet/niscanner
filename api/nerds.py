@@ -1,4 +1,4 @@
-from api.http.request import PostRequest
+from niscanner.api.http.request import PostRequest
 import json
 
 class NerdsApi:
