@@ -1,4 +1,4 @@
-import urllib.request, urllib.error, urllib.parse
+import urllib.request
 from urllib.parse import urlencode
 
 class BaseRequest(object):

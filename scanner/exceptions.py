@@ -1,3 +1,3 @@
 
-class ScannerExeption(Exception):
+class ScannerException(Exception):
     pass

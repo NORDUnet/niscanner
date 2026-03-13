@@ -1,14 +1,16 @@
-from configparser import ConfigParser
-from utils.cli import CLI
-from api.queue import Queue
-from api.nerds import NerdsApi
-from scanner.host import HostScanner
-from scanner.router import RouterScanner
-from scanner.exceptions import ScannerExeption
-from utils.url import url_concat
 import json
 import sys
 import logging
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from configparser import ConfigParser
+from niscanner.utils.cli import CLI
+from niscanner.api.queue import Queue
+from niscanner.api.nerds import NerdsApi
+from niscanner.scanner.host import HostScanner
+from niscanner.scanner.router import RouterScanner
+from niscanner.scanner.exceptions import ScannerException
+from niscanner.utils.url import url_concat
 
 FORMAT = '%(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(format=FORMAT)
@@ -30,7 +32,7 @@ def process_host(queue, nerds_api):
                 logger.debug("Posting nerds data")
                 nerds_api.send(nerds)
                 queue.done(item)
-        except ScannerExeption as e:
+        except ScannerException as e:
             logger.error("%s", e)
             failed(queue, item)
         except Exception as e:
