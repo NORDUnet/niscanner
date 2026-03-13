@@ -1,1 +1,1 @@
-from .models import Router, Interface, BgpPeering
+from niscanner.juniper_conf.models.models import Router, Interface, BgpPeering

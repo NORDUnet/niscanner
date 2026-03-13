@@ -1,5 +1,5 @@
 from xml.dom import minidom
-from .bgp import BgpPeeringParser
+from niscanner.juniper_conf.parsers.bgp import BgpPeeringParser
 import unittest
 
 

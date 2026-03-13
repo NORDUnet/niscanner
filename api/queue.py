@@ -1,7 +1,7 @@
 from urllib.parse import urljoin
 from api.http.request import GetRequest, PutRequest
 import json
-import urllib.request, urllib.error, urllib.parse
+import urllib.error
 
 class Queue:
 

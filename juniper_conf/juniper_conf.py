@@ -23,8 +23,8 @@ import sys
 from configparser import ConfigParser
 import argparse
 import logging
-from parsers import ElementParser, RouterPaser, ChassisParser
-from util import JsonWriter, JunosRemoteSource
+from niscanner.juniper_conf.parsers import ElementParser, RouterPaser, ChassisParser
+from niscanner.juniper_conf.util import JsonWriter, JunosRemoteSource
 
 logger = logging.getLogger('juniper_conf')
 logger.setLevel(logging.INFO)

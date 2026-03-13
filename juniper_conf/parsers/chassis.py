@@ -1,5 +1,5 @@
-from .base import ElementParser
-from models.chassis import Chassis, ChassisModule
+from niscanner.juniper_conf.parsers.base import ElementParser
+from niscanner.juniper_conf.models.chassis import Chassis, ChassisModule
 
 
 class ChassisParser:

@@ -1,19 +1,10 @@
 import json
 import logging
-import sys
 
 logger = logging.getLogger('router_scanner')
 
-try:
-    from juniper_conf.juniper_conf import scan_remote_host
-except ImportError as e:
-    logger.error(
-        "Could not import juniper_conf. "
-        "Check that niscanner/juniper_conf is a symlink to "
-        "nerds/producers/juniper_conf."
-    )
-    logger.error('Import error: %s', e)
-    sys.exit(1)
+from niscanner.juniper_conf.juniper_conf import scan_remote_host
+
 
 
 class RouterScanner:

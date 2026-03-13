@@ -1,5 +1,5 @@
-from .base import ElementParser
-from models import BgpPeering
+from niscanner.juniper_conf.parsers.base import ElementParser
+from niscanner.juniper_conf.models import BgpPeering
 
 
 class BgpPeeringParser:

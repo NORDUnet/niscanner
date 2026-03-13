@@ -1,4 +1,4 @@
-from .chassis import ChassisParser
+from niscanner.juniper_conf.parsers.chassis import ChassisParser
 import unittest
 from xml.dom import minidom
 

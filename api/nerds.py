@@ -1,7 +1,5 @@
-from urllib.parse import urljoin
 from api.http.request import PostRequest
 import json
-import urllib.request, urllib.error, urllib.parse
 
 class NerdsApi:
     def __init__(self, url, user, api_key):

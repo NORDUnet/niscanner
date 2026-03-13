@@ -1,4 +1,4 @@
-from .chassis import Chassis, ChassisModule
+from niscanner.juniper_conf.models.chassis import Chassis, ChassisModule
 import unittest
 
 

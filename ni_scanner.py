@@ -1,3 +1,8 @@
+import json
+import sys
+import logging
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
 from configparser import ConfigParser
 from utils.cli import CLI
 from api.queue import Queue
@@ -6,9 +11,6 @@ from scanner.host import HostScanner
 from scanner.router import RouterScanner
 from scanner.exceptions import ScannerExeption
 from utils.url import url_concat
-import json
-import sys
-import logging
 
 FORMAT = '%(name)s - %(levelname)s - %(message)s'
 logging.basicConfig(format=FORMAT)

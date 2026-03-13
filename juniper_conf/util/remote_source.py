@@ -1,11 +1,12 @@
+from niscanner.juniper_conf.util import logger
+
 try:
-    from util import logger
     import pexpect
     from xml.dom import minidom
     from xml.parsers.expat import ExpatError
     importError = False
 except ImportError:
-    logger.error("Install pexpect to be able to fetch config from remote source")
+    logger.warn("Install pexpect to be able to fetch config from remote source")
     importError = True
 
 

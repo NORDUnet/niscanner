@@ -1,5 +1,5 @@
 from xml.dom import minidom
-from .interfaces import InterfaceParser
+from niscanner.juniper_conf.parsers.interfaces import InterfaceParser
 import unittest
 import json
 

@@ -1,7 +1,7 @@
-from .base import ElementParser, get_hostname
-from models import Router
-from .interfaces import InterfaceParser
-from .bgp import BgpPeeringParser
+from niscanner.juniper_conf.parsers.base import ElementParser, get_hostname
+from niscanner.juniper_conf.models import Router
+from niscanner.juniper_conf.parsers.interfaces import InterfaceParser
+from niscanner.juniper_conf.parsers.bgp import BgpPeeringParser
 
 
 class RouterPaser:

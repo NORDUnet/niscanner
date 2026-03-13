@@ -1,6 +1,6 @@
-from models import Interface
-from .base import ElementParser, get_hostname
-from util import logger
+from niscanner.juniper_conf.models import Interface
+from niscanner.juniper_conf.parsers.base import ElementParser, get_hostname
+from niscanner.juniper_conf.util import logger
 
 
 class InterfaceParser:
