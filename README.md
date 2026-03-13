@@ -10,8 +10,12 @@ Currently it supports nmap scans of hosts. When run it will process all currentl
 2. Symlinks for [nerds](https://github.com/fredrikt/nerds)
   - `producers/nmap_services_py/nmap_services_py.py` into `utils`
   - `producers/nerds_utils/file.py` and `producers/nerds_utils/nerds.py` into `nerds_utils`
+  - `producers/juniper_conf/` as `niscanner/juniper_conf` (whole directory, for router scanning)
+    ```
+    ln -s /path/to/nerds/producers/juniper_conf/ niscanner/juniper_conf
+    ```
 3. Copy `settings.conf.dist` to `settings.conf`
-4. Fill in settings
+4. Fill in settings — including the `[ssh]` section if router scanning is needed
 
 ## Usage
 
