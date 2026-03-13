@@ -3,3 +3,7 @@
 api_key=
 api_user=
 url=http://localhost/api/v1
+
+[ssh]
+user=
+password=
